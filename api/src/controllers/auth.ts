@@ -14,7 +14,7 @@ const getMe = async (req: Request, res: Response, next: NextFunction) => {
     // call the web API with the access token
 
     const me = await callApi(
-      apiConfig.uri + `/${req.authInf["oid"]}`,
+      apiConfig.uri + `/${req.authInfo["oid"]}`,
       authResponse!.accessToken
     );
 

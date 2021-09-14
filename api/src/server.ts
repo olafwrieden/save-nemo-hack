@@ -60,6 +60,11 @@ router.use((req, res, next) => {
 router.use("/", auth);
 router.use("/", posts);
 
+router.get("/", (req, res) => {
+  console.log("Validated claims: ", req.authInfo);
+  res.status(200).json({ message: "Hi there!" });
+});
+
 /** Error handling */
 router.use((req, res, next) => {
   const error = new Error("not found");
