@@ -1,0 +1,76 @@
+import "dotenv/config";
+import express, { Express } from "express";
+import http from "http";
+import morgan from "morgan";
+import passport from "passport";
+import {
+  BearerStrategy,
+  IBearerStrategyOptionWithRequest,
+} from "passport-azure-ad";
+import * as config from "./auth/config.json";
+import auth from "./routes/auth";
+import posts from "./routes/posts";
+
+const options: IBearerStrategyOptionWithRequest = {
+  identityMetadata: `https://${config.credentials.tenantName}.b2clogin.com/${config.credentials.tenantName}.onmicrosoft.com/${config.policies.policyName}/${config.metadata.version}/${config.metadata.discovery}`,
+  clientID: config.credentials.clientID,
+  audience: config.credentials.clientID,
+  policyName: config.policies.policyName,
+  isB2C: config.settings.isB2C,
+  validateIssuer: config.settings.validateIssuer,
+  passReqToCallback: config.settings.passReqToCallback,
+};
+
+const bearerStrategy = new BearerStrategy(options, (token: any, done: any) => {
+  // Send user info using the second argument
+  done(null, {}, token);
+});
+
+const router: Express = express();
+
+/** Logging */
+router.use(morgan("dev"));
+/** Parse the request */
+router.use(express.urlencoded({ extended: false }));
+/** Takes care of JSON data */
+router.use(express.json());
+
+/** Use passport middleware */
+router.use(passport.initialize());
+passport.use(bearerStrategy);
+
+/** RULES OF OUR API */
+router.use((req, res, next) => {
+  // set the CORS policy
+  res.header("Access-Control-Allow-Origin", "*");
+  // set the CORS headers
+  res.header(
+    "Access-Control-Allow-Headers",
+    "origin, X-Requested-With, Content-Type,Accept, Authorization"
+  );
+  // set the CORS method headers
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "GET PATCH DELETE POST");
+    return res.status(200).json({});
+  }
+  next();
+});
+
+/** Routes */
+router.use("/", auth);
+router.use("/", posts);
+
+/** Error handling */
+router.use((req, res, next) => {
+  const error = new Error("not found");
+  return res.status(404).json({
+    message: error.message,
+  });
+});
+
+/** Server */
+const httpServer = http.createServer(router);
+const PORT: any = process.env.PORT ?? 6060;
+httpServer.listen(PORT, () =>
+  console.log(`The server is running on port ${PORT}`)
+);
