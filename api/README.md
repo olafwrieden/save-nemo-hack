@@ -10,15 +10,17 @@ Then proceed with:
 
 ```bash
 $ npm install
+
+# in this step, node modules will be installed
 ```
 
 Start dev server (hot refresh) using:
 
 ```bash
 $ npm run dev
-```
 
-> The server is running on port 6060
+# The server is running on port 6060
+```
 
 You can now query the endpoints:
 
