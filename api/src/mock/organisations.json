@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1,
+    "name": "Emily's Diving School",
+    "category": "DIVING_SCHOOL",
+    "plan": "STARTER",
+    "members": [
+      {
+        "user": 2,
+        "role": "OWNER",
+        "joined": "2020-06-27T23:35:43.532+00:00"
+      },
+      {
+        "user": 3,
+        "role": "ADMIN",
+        "joined": "2020-07-27T14:22:44.124+00:00"
+      },
+      {
+        "user": 1,
+        "role": "STANDARD",
+        "joined": "2020-07-27T14:22:44.124+00:00"
+      }
+    ]
+  }
+]
