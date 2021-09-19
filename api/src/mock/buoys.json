@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "buoy-01",
+    "owner_org": 1
+  },
+  {
+    "id": 2,
+    "name": "buoy-02",
+    "owner_org": 1
+  },
+  {
+    "id": 3,
+    "name": "buoy-03",
+    "owner_org": 2
+  }
+]

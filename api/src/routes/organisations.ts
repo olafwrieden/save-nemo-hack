@@ -1,24 +1,18 @@
 import express from "express";
-import controller from "../controllers/auth";
+import controller from "../controllers/organisations";
 import passport from "passport";
 const router = express.Router();
 
 router.get(
-  "/me",
-  passport.authenticate("oauth-bearer", { session: false }),
-  controller.getMe
-);
-
-router.get(
-  "/users",
+  "/",
   passport.authenticate("oauth-bearer", { session: false }),
   controller.getAll
 );
 
-router.patch(
-  "/users/:id",
+router.get(
+  "/:id",
   passport.authenticate("oauth-bearer", { session: false }),
-  controller.updateUser
+  controller.getAll
 );
 
 export = router;

@@ -8,8 +8,10 @@ import {
   IBearerStrategyOptionWithRequest,
 } from "passport-azure-ad";
 import * as config from "./auth/config.json";
+import organisations from "./routes/organisations";
 import auth from "./routes/auth";
 import posts from "./routes/posts";
+import buoys from "./routes/buoys";
 
 const options: IBearerStrategyOptionWithRequest = {
   identityMetadata: `https://${config.credentials.tenantName}.b2clogin.com/${config.credentials.tenantName}.onmicrosoft.com/${config.policies.policyName}/${config.metadata.version}/${config.metadata.discovery}`,
@@ -46,7 +48,7 @@ router.use((req, res, next) => {
   // set the CORS headers
   res.header(
     "Access-Control-Allow-Headers",
-    "origin, X-Requested-With, Content-Type,Accept, Authorization"
+    "origin, X-Requested-With, Content-Type, Accept, Authorization organization_id"
   );
   // set the CORS method headers
   if (req.method === "OPTIONS") {
@@ -58,7 +60,9 @@ router.use((req, res, next) => {
 
 /** Routes */
 router.use("/", auth);
-router.use("/", posts);
+router.use("/posts", posts);
+router.use("/buoys", buoys);
+router.use("/organizations", organisations);
 
 router.get("/", (req, res) => {
   console.log("Validated claims: ", req.authInfo);

@@ -7,7 +7,7 @@
     "policyName": "B2C_1_susi"
   },
   "resource": {
-    "scope": ["demo.read", "demo.read"]
+    "scope": ["demo.read", "demo.write", "User.ReadWrite.All"]
   },
   "metadata": {
     "authority": "login.microsoftonline.com",
