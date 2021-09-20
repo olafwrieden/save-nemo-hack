@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { string } from "prop-types";
+import { AntdIconProps } from "@ant-design/icons/lib/components/AntdIcon";
+import React, { Component, ForwardRefExoticComponent } from "react";
 
 export class Icon extends Component<{
   type?: string;
@@ -10,5 +10,9 @@ export class Icon extends Component<{
     return <>{React.createElement(type, { className: className })}</>;
   }
 }
+
+// export const Icon = (type?: AntdIconProps, classname?: string) => {
+//   return React.createElement(type.type, { className: classname });
+// };
 
 export default Icon;

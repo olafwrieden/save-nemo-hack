@@ -1,3 +1,4 @@
+import { useIsAuthenticated, useMsal } from "@azure/msal-react";
 import { Grid, Layout } from "antd";
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
@@ -28,6 +29,10 @@ export const AppLayout = () => {
   const [state] = useContext(MainContext);
   const { navCollapsed, navType, direction } = state;
   const router = useRouter();
+
+  const { accounts } = useMsal();
+  const name = accounts[0].name;
+  const isAuthed = useIsAuthenticated();
 
   const currentRouteInfo = utils.getRouteInfo(
     navigationConfig,
@@ -76,7 +81,8 @@ export const AppLayout = () => {
               title={currentRouteInfo?.title}
             />
             <Content>
-              <p>This is the content</p>
+              <p>Welcome, {name}</p>
+              <p>You are {isAuthed ? "" : "not "} authenticated.</p>
             </Content>
           </div>
           <Footer />

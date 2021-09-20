@@ -1,22 +1,22 @@
-import { useUser } from "../hooks/useUser";
+import { useMsal } from "@azure/msal-react";
+import { GetStaticPropsContext } from "next";
 
 export default function Profile() {
-  const { user } = useUser();
-
-  // console.log(user);
+  const { accounts } = useMsal();
+  const name = accounts[0].name;
 
   return (
     <>
-      <h1>Hi {user.name}</h1>
+      <h1>Hi {name}</h1>
       <p>Welcome to your profile page.</p>
     </>
   );
 }
 
-export async function getStaticProps(context) {
+export async function getStaticProps(context: GetStaticPropsContext) {
   return {
     props: {
-      protected: true,
+      protected: false,
       userTypes: ["admin"],
     },
   };

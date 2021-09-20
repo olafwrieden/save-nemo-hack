@@ -1,4 +1,5 @@
 // import LoginForm from "../../components/LoginForm";
+import { useMsal } from "@azure/msal-react";
 import { Button, Col, Row } from "antd";
 import Form from "antd/lib/form/Form";
 import { useContext } from "react";
@@ -14,6 +15,7 @@ const backgroundStyle = {
 
 const App = () => {
   const [state, dispatch] = useContext(MainContext);
+  const { instance } = useMsal();
   const { currentTheme: theme } = state;
 
   return (
@@ -26,17 +28,17 @@ const App = () => {
                 <h1>Sign In</h1>
                 <p>
                   Sign in with your {APP_NAME} account or{" "}
-                  <a href="/auth/register-2">create an account</a> if you don't
+                  create an account if you don't
                   have one yet.
                 </p>
                 <div className="mt-4">
                   <Form layout="vertical" name="login-form">
                     <Button
-                      // onClick={() => onGoogleLogin()}
+                      onClick={() => instance.loginRedirect()}
                       className="mr-2"
                       disabled={false}
                     >
-                      Sign In
+                      Sign in or Sign up
                     </Button>
                   </Form>
                 </div>

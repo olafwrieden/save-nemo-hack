@@ -1,15 +1,15 @@
+import { MsalProvider } from "@azure/msal-react";
 import { ConfigProvider } from "antd";
+import "antd/dist/antd.css";
 import { createContext, useEffect, useReducer, useState } from "react";
-import CookieConsent, { Cookies } from "react-cookie-consent";
+import CookieConsent from "react-cookie-consent";
 import { ThemeSwitcherProvider } from "react-css-theme-switcher";
 import Layout from "../components/layout";
-import Loading from "../components/shared-components/Loading";
-import { UserContext } from "../hooks/useUser";
 import themeReducer, {
   initialThemeState,
 } from "../contexts/theme/themeReducer";
-import "antd/dist/antd.css";
 import "../public/static/css/index.css";
+import { msalInstance } from "../services/msal";
 
 export const MainContext = createContext(null);
 
@@ -31,19 +31,6 @@ const App = ({ Component, pageProps }) => {
     light: `${process.env.NEXT_PUBLIC_URL}/static/css/light-theme.css`,
   };
 
-  if (pageProps.protected && !user) {
-    return <Loading cover="page" />;
-  }
-
-  if (
-    pageProps.protected &&
-    user &&
-    pageProps.userTypes &&
-    pageProps.userTypes.indexOf(user.type) === -1
-  ) {
-    return <Layout>Sorry, you don't have access</Layout>;
-  }
-
   return (
     <>
       <MainContext.Provider value={[theme, dispatch]}>
@@ -53,11 +40,13 @@ const App = ({ Component, pageProps }) => {
           insertionPoint="styles-insertion-point"
         >
           <ConfigProvider direction="ltr">
-            <UserContext.Provider value={user}>
+            {/* <UserContext.Provider value={user}> */}
+            <MsalProvider instance={msalInstance}>
               <Layout>
                 <Component {...pageProps} />
               </Layout>
-            </UserContext.Provider>
+            </MsalProvider>
+            {/* </UserContext.Provider> */}
           </ConfigProvider>
         </ThemeSwitcherProvider>
       </MainContext.Provider>

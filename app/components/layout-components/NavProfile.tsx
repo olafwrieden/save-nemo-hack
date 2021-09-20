@@ -1,12 +1,13 @@
-import React from "react";
-import { Menu, Dropdown, Avatar } from "antd";
 import {
   EditOutlined,
-  SettingOutlined,
-  ShopOutlined,
-  QuestionCircleOutlined,
   LogoutOutlined,
+  QuestionCircleOutlined,
 } from "@ant-design/icons";
+import { RedirectRequest } from "@azure/msal-browser";
+import { useMsal } from "@azure/msal-react";
+import { Avatar, Dropdown, Menu } from "antd";
+import React from "react";
+import { editAuthority } from "../../services/msal";
 import Icon from "../util-components/Icon";
 
 const menuItem = [
@@ -18,16 +19,28 @@ const menuItem = [
 ];
 
 export const NavProfile = () => {
-  const profileImg =
-    "https://ui-avatars.com/api/?background=ddd&color=999&name=CH&format=svg";
+  const { accounts, instance } = useMsal();
+  const name = accounts[0].name;
+  const username = accounts[0].username;
+  const editProfile: RedirectRequest = {
+    ...editAuthority,
+    scopes: [],
+    loginHint: username,
+  };
+
+  const profileImg = `https://ui-avatars.com/api/?background=ddd&color=999&name=${name}&format=svg`;
   const profileMenu = (
     <div className="nav-profile nav-dropdown">
       <div className="nav-profile-header">
         <div className="d-flex">
-          <Avatar size={45} src={profileImg} />
-          <div className="pl-3">
-            <h4 className="mb-0">Charlie Howard</h4>
-            <span className="text-muted">Frontend Developer</span>
+          <Avatar
+            size={45}
+            src={profileImg}
+            style={{ marginInlineEnd: "10px" }}
+          />
+          <div className="pl-2">
+            <h4 className="mb-0">{name}</h4>
+            <span className="text-muted">Volunteer</span>
           </div>
         </div>
       </div>
@@ -45,7 +58,16 @@ export const NavProfile = () => {
           })}
           <Menu.Item
             key={menuItem.length + 1}
-            onClick={(e) => console.log("user wants to sign out")}
+            onClick={() => instance.loginRedirect(editProfile)}
+          >
+            <span>
+              <EditOutlined className="mr-3" />
+              <span className="font-weight-normal">Edit Profile</span>
+            </span>
+          </Menu.Item>
+          <Menu.Item
+            key={menuItem.length + 2}
+            onClick={() => instance.logoutRedirect()}
           >
             <span>
               <LogoutOutlined className="mr-3" />
