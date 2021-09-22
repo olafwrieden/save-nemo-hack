@@ -1,3 +1,4 @@
+// @ts-nocheck
 import AuthLayout from "./layouts/AuthLayout";
 import AppLayout from "./layouts/AppLayout";
 import { useContext } from "react";

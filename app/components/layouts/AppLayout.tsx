@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useIsAuthenticated, useMsal } from "@azure/msal-react";
 import { Grid, Layout } from "antd";
 import { useRouter } from "next/router";

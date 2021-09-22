@@ -1,7 +1,5 @@
-import { APP_BASE_URL as siteUrl } from "./constants/AppConfig";
-
 module.exports = {
-  siteUrl,
+  siteUrl: process.env.SITE_URL || "https://nemopi-dev.azurewebsites.net",
   generateRobotsTxt: true,
   robotsTxtOptions: {
     policies: [

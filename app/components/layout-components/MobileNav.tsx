@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useContext } from "react";
 import { Drawer } from "antd";
 import { NAV_TYPE_SIDE } from "../../constants/ThemeConstants";

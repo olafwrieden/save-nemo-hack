@@ -1,4 +1,3 @@
-// import LoginForm from "../../components/LoginForm";
 import { useMsal } from "@azure/msal-react";
 import { Button, Col, Row } from "antd";
 import Form from "antd/lib/form/Form";

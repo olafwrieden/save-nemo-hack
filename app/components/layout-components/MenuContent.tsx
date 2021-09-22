@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Grid, Menu } from "antd";
 import Link from "next/link";
 import React, { useContext } from "react";
