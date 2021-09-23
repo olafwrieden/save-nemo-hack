@@ -5,8 +5,8 @@ import { APP_BASE_URL } from "../constants/AppConfig";
 
 const defaultTitle = "Nemo Cloud! · Welcome";
 const defaultDescription = "Monitoring your Nemo Pi Smart Buoys is easy with Nemo Cloud. This is the official management portal for Nemo Pi.";
-const defaultOGURL = APP_BASE_URL;
-const defaultOGImage = `${APP_BASE_URL}/img/og/og.png`;
+const defaultOGURL = process.env.NEXT_PUBLIC_URL;
+const defaultOGImage = `${defaultOGURL}/static/img/og/og.png`;
 
 const Head = (props) => (
   <NextHead>
