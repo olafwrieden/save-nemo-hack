@@ -4,6 +4,7 @@ import "antd/dist/antd.css";
 import { createContext, useEffect, useReducer, useState } from "react";
 import CookieConsent from "react-cookie-consent";
 import { ThemeSwitcherProvider } from "react-css-theme-switcher";
+import Head from "../components/head";
 import Layout from "../components/layout";
 import themeReducer, {
   initialThemeState,
@@ -33,6 +34,7 @@ const App = ({ Component, pageProps }) => {
 
   return (
     <>
+      <Head />
       <MainContext.Provider value={[theme, dispatch]}>
         <ThemeSwitcherProvider
           themeMap={themes}

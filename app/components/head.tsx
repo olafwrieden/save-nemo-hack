@@ -2,7 +2,7 @@ import NextHead from "next/head";
 import { string } from "prop-types";
 import React from "react";
 
-const defaultTitle = "Nemo Cloud! · Welcome";
+const defaultTitle = "Nemo Cloud · Welcome";
 const defaultDescription = "Monitoring your Nemo Pi Smart Buoys is easy with Nemo Cloud. This is the official management portal for Nemo Pi.";
 const defaultOGURL = process.env.NEXT_PUBLIC_URL;
 const defaultOGImage = `${defaultOGURL}/static/img/og/og.png`;
@@ -21,7 +21,7 @@ const Head = (props) => (
     <link rel="mask-icon" href="/static/favicon-mask.svg" color="#49B882" />
     <link rel="icon" href="/static/favicon.ico" />
     <meta property="og:url" content={props.url || defaultOGURL} />
-    <meta property="og:title" content={props.title || ""} />
+    <meta property="og:title" content={props.title || defaultTitle} />
     <meta
       property="og:description"
       content={props.description || defaultDescription}
