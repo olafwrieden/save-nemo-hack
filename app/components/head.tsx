@@ -1,7 +1,6 @@
 import NextHead from "next/head";
 import { string } from "prop-types";
 import React from "react";
-import { APP_BASE_URL } from "../constants/AppConfig";
 
 const defaultTitle = "Nemo Cloud! · Welcome";
 const defaultDescription = "Monitoring your Nemo Pi Smart Buoys is easy with Nemo Cloud. This is the official management portal for Nemo Pi.";
