@@ -54,3 +54,19 @@ Sensor readings are currently stored like this (again, open to ideas):
   "datetime": "[datetime string]"
 }
 ```
+
+## Useful Resources
+
+These resources helped in the learning journey.
+
+### API
+
+- [How to Create a Simple REST API using TypeScript and Node.js](https://www.section.io/engineering-education/how-to-create-a-simple-rest-api-using-typescript-and-nodejs/)
+
+### Azure Active Directory
+
+- [Manage custom user attributes in Azure B2C](https://www.locktar.nl/programming/manage-custom-user-attributes-in-azure-b2c/)
+- [Fetching custom attributes from Azure Active Directory via the Microsoft Graph](https://www.techmikael.com/2017/11/fetching-custom-attributes-from-azure.html)
+- [Use query parameters to customize AAD responses](https://docs.microsoft.com/en-us/graph/query-parameters)
+- [Azure AD Authentication using MSAL and Next.js (React)](https://www.daryllukas.me/azure-ad-authentication-using-msal-and-nextjs-react/)
+- [Enrich tokens with claims from external sources using API connectors](https://docs.microsoft.com/en-us/azure/active-directory-b2c/add-api-connector-token-enrichment?pivots=b2c-user-flow)
