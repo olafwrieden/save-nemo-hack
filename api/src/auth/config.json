@@ -3,6 +3,9 @@
     "tenantName": "nemopi",
     "clientID": "93f423c8-3e7f-4458-87ca-069cb4a62049"
   },
+  "extensions": {
+    "clientID": "e49403e6-125b-4822-9226-fa5e78ad05a3"
+  },
   "policies": {
     "policyName": "B2C_1_susi"
   },
