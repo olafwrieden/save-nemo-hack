@@ -1,3 +1,29 @@
+# Endpoints
+
+| Method | Endpoint                           | Retuns                                 |
+| :----- | :--------------------------------- | :------------------------------------- |
+| GET    | `/me`                              | Profile info of the current user       |
+| --     | --                                 | --                                     |
+| GET    | `/users`                           | Every user in AAD                      |
+| GET    | `/users/{id}`                      | AAD user by ID                         |
+| PATCH  | `/users/{id}`                      | Updates the AAD user by ID             |
+| --     | --                                 | --                                     |
+| GET    | `/organizations`                   | All organisations                      |
+| POST   | `/organizations`                   | Creates a new organisation             |
+| GET    | `/organizations/{id}`              | A specific organisation                |
+| PATCH  | `/organizations/{id}`              | Update specific organisation           |
+| DELETE | `/organizations/{id}`              | Deletes a specific organisation        |
+| GET    | `/organizations/{id}/billing`      | Org's billing information              |
+| PATCH  | `/organizations/{id}/billing`      | Update billing details                 |
+| GET    | `/organizations/{id}/members`      | All members in a specific organisation |
+| POST   | `/organizations/{id}/members`      | Add member to an organisation          |
+| PATCH  | `/organizations/{id}/members/{id}` | Update membership (e.g. access level)  |
+| DELETE | `/organizations/{id}/members/{id}` | Remove member from an organisation     |
+| --     | --                                 | --                                     |
+| GET    | `/buoys`                           | All buoys                              |
+| POST   | `/buoys`                           | Register new buoy in the system        |
+| GET    | `/buoys/{id}`                      | Get a specific buoy                    |
+
 # Account Permissions
 
 | Permission            | Owner | Admin | Member |
