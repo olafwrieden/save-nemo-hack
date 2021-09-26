@@ -1,6 +1,7 @@
 // @ts-nocheck
 import {
   EditOutlined,
+  HeartTwoTone,
   LogoutOutlined,
   QuestionCircleOutlined,
 } from "@ant-design/icons";
@@ -21,8 +22,9 @@ const menuItem = [
 
 export const NavProfile = () => {
   const { accounts, instance } = useMsal();
-  const name = accounts[0].name;
-  const username = accounts[0].username;
+  const { name, username, idTokenClaims } = accounts[0];
+  const isVolunteer = !!idTokenClaims["extension_Volunteer"];
+
   const editProfile: RedirectRequest = {
     ...editAuthority,
     scopes: [],
@@ -41,7 +43,15 @@ export const NavProfile = () => {
           />
           <div className="pl-2">
             <h4 className="mb-0">{name}</h4>
-            <span className="text-muted">Volunteer</span>
+            <span className="text-muted">
+              {isVolunteer ? (
+                <>
+                  <HeartTwoTone twoToneColor="#eb2f96" /> {"Volunteer"}
+                </>
+              ) : (
+                "Welcome!"
+              )}
+            </span>
           </div>
         </div>
       </div>
