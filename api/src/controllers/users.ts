@@ -1,38 +1,20 @@
 // @ts-nocheck
 import { NextFunction, Request, Response } from "express";
 import { apiConfig, getToken, tokenRequest } from "../auth";
+import { getAttribute } from "../utils/attributes";
 import { callApi, patchAPI } from "../utils/callGraph";
 
-// getting all posts
+// GET /me
 const getMe = async (req: Request, res: Response, next: NextFunction) => {
-  console.log("Validated claims: ", req.authInfo);
-
   try {
-    // here we get an access token
-    const authResponse = await getToken(tokenRequest);
+    let meFormatted = {
+      id: String(req.authInfo["oid"]),
+      name: String(req.authInfo["name"]),
+      first_name: String(req.authInfo["given_name"]),
+      last_name: String(req.authInfo["family_name"]),
+      isVolunteer: !!req.authInfo["extension_Volunteer"],
+    };
 
-    // call the web API with the access token
-
-    const me = await callApi(
-      apiConfig.uri + `/${req.authInfo["oid"]}`,
-      authResponse!.accessToken
-    );
-
-    // display result
-    let {
-      id,
-      displayName: name,
-      givenName: first_name,
-      surname: last_name,
-      userPrincipalName: email,
-    } = me;
-    let meFormatted = { id, name, first_name, last_name, email };
-
-    meFormatted.name === "unknown"
-      ? (meFormatted.name = `${me.givenName} ${me.surname}`)
-      : (meFormatted.name = "unknown");
-
-    console.log(meFormatted);
     res.status(200).json(meFormatted);
   } catch (error) {
     console.log(error);
@@ -41,12 +23,16 @@ const getMe = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const getAll = async (req: Request, res: Response, next: NextFunction) => {
-  console.log("Validated claims: ", req.authInfo);
-
   try {
     const authResponse = await getToken(tokenRequest);
 
-    const users = await callApi(apiConfig.uri + `/`, authResponse!.accessToken);
+    const attributeSelector = `$select=id,displayName,givenName,surname,${getAttribute(
+      "Volunteer"
+    )}`;
+    const users = await callApi(
+      apiConfig.uri + `/?${attributeSelector}`,
+      authResponse!.accessToken
+    );
 
     console.log(users);
     res.status(200).json(users);

@@ -9,7 +9,7 @@ import {
 } from "passport-azure-ad";
 import * as config from "./auth/config.json";
 import organisations from "./routes/organisations";
-import auth from "./routes/auth";
+import users from "./routes/users";
 import posts from "./routes/posts";
 import buoys from "./routes/buoys";
 
@@ -59,7 +59,7 @@ router.use((req, res, next) => {
 });
 
 /** Routes */
-router.use("/", auth);
+router.use("/", users);
 router.use("/posts", posts);
 router.use("/buoys", buoys);
 router.use("/organizations", organisations);
