@@ -1,4 +1,5 @@
 # Save-Nemo Hack
+
 Save Nemo Hackathon
 
 Current metadata sent by buoy, flexible on changes given we are redesigning the process.
@@ -70,3 +71,7 @@ These resources helped in the learning journey.
 - [Use query parameters to customize AAD responses](https://docs.microsoft.com/en-us/graph/query-parameters)
 - [Azure AD Authentication using MSAL and Next.js (React)](https://www.daryllukas.me/azure-ad-authentication-using-msal-and-nextjs-react/)
 - [Enrich tokens with claims from external sources using API connectors](https://docs.microsoft.com/en-us/azure/active-directory-b2c/add-api-connector-token-enrichment?pivots=b2c-user-flow)
+
+### Auth Functions
+
+- [API Connectors with B2C](https://github.com/Azure-Samples/active-directory-nodejs-external-identities-api-connector-azure-function-validate)
