@@ -1,3 +1,17 @@
 {
-    "name": "Azure"
+    "email": "johnsmith@fabrikam.onmicrosoft.com",
+    "identities": [
+        {
+            "signInType":"federated",
+            "issuer":"facebook.com",
+            "issuerAssignedId":"0123456789"
+        }
+    ],
+    "displayName": "John Smith",
+    "objectId": "87b4462e-4459-4913-b171-ff72f0106a73",
+    "extension_<extensions-app-id>_CustomAttribute1": "custom attribute value",
+    "extension_<extensions-app-id>_CustomAttribute2": "custom attribute value",
+    "client_id": "231c70e8-8424-48ac-9b5d-5623b9e4ccf3",
+    "step": "PreTokenIssuance",
+    "ui_locales":"en-US"
 }
