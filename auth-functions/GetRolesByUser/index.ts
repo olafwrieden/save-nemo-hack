@@ -4,15 +4,6 @@ import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 const COSMOSDB_ENDPOINT = process.env.COSMOSDB_ENDPOINT || "";
 const COSMOSDB_KEY = process.env.COSMOSDB_KEY || "";
 
-// Create CosmosDB Client
-export const client = new CosmosClient({
-  endpoint: COSMOSDB_ENDPOINT,
-  key: COSMOSDB_KEY,
-});
-
-const database = client.database("save-nemo");
-const container = database.container("users");
-
 // Retries the organizations and roles for a given member
 const GetRolesByUser: AzureFunction = async function (
   context: Context,
@@ -20,24 +11,41 @@ const GetRolesByUser: AzureFunction = async function (
 ): Promise<void> {
   context.log(`${GetRolesByUser.name} triggered...`);
 
-  // query to return all items
+  // Create CosmosDB Client
+  const client = new CosmosClient({
+    endpoint: COSMOSDB_ENDPOINT,
+    key: COSMOSDB_KEY,
+  });
+  
+  const database = client.database("save-nemo");
+  const container = database.container("users");
+
+  // Get User's ID from request body
+  const objectId = req.body.objectId;
+  console.log(`API called with oid: '${objectId}'`);
+
+  // Construct query: User ID and their role for each organization
   const querySpec = {
-    query: "SELECT * from c",
+    query: `SELECT o.id, users.role FROM orgs o JOIN users IN o.members WHERE users.user = '${objectId}'`,
   };
 
-  // read all items in the Items container
+  // Run Query to get user's roles
   const { resources: items } = await container.items
     .query(querySpec)
     .fetchAll();
 
-  items.forEach((item) => {
-    console.log(`${item} - `);
-  });
+  // Print roles to console for testing
+  items.forEach((item) => console.log(`${item.id} - ${item.role}`));
 
-  const name = req.query.name || (req.body && req.body.name);
-  const responseMessage = name
-    ? "Hello, " + name + ". This HTTP triggered function executed successfully."
-    : "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.";
+  // Stringify user's roles
+  const orgRoles = items.map((val) => `${val.id}:${val.role}`);
+
+  // Construct response message
+  const responseMessage = {
+    version: "1.0.0",
+    action: "Continue",
+    extension_e49403e6125b48229226fa5e78ad05a3_OrgRoles: orgRoles.join(";"), // return claim
+  };
 
   context.res = {
     // status: 200, /* Defaults to 200 */
