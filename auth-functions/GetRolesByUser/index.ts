@@ -9,16 +9,14 @@ const GetRolesByUser: AzureFunction = async function (
   context: Context,
   req: HttpRequest
 ): Promise<void> {
-  context.log(`${GetRolesByUser.name} triggered...`);
-
   // Create CosmosDB Client
   const client = new CosmosClient({
     endpoint: COSMOSDB_ENDPOINT,
     key: COSMOSDB_KEY,
   });
-  
-  const database = client.database("save-nemo");
-  const container = database.container("users");
+
+  const database = client.database("save-nemo"); // Database where org info is stored
+  const container = database.container("organizations"); // Container of organizations
 
   // Get User's ID from request body
   const objectId = req.body.objectId;
@@ -48,7 +46,6 @@ const GetRolesByUser: AzureFunction = async function (
   };
 
   context.res = {
-    // status: 200, /* Defaults to 200 */
     body: responseMessage,
   };
 };
