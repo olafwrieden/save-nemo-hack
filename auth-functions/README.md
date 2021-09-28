@@ -27,7 +27,9 @@ This folder contains the function project for Azure Functions under the app _sav
        "AzureWebJobsStorage": "",
        "FUNCTIONS_WORKER_RUNTIME": "node",
        "COSMOSDB_ENDPOINT": "[YOUR_COSMOS_DB_ENDPOINT]",
-       "COSMOSDB_KEY": "[YOUR_COSMOS_DB_KEY]"
+       "COSMOSDB_KEY": "[YOUR_COSMOS_DB_KEY]",
+       "BASIC_AUTH_USERNAME": "[BASIC_AUTH_USERNAME]",
+       "BASIC_AUTH_PASSWORD": "[BASIC_AUTH_PASSWORD]"
      }
    }
    ```
