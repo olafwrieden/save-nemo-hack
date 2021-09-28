@@ -5,7 +5,7 @@ const COSMOSDB_ENDPOINT = process.env.COSMOSDB_ENDPOINT || "";
 const COSMOSDB_KEY = process.env.COSMOSDB_KEY || "";
 
 // Retries the organizations and roles for a given member
-const GetRolesByUser: AzureFunction = async function (
+const GetOrgRolesByUser: AzureFunction = async function (
   context: Context,
   req: HttpRequest
 ): Promise<void> {
@@ -50,4 +50,4 @@ const GetRolesByUser: AzureFunction = async function (
   };
 };
 
-export default GetRolesByUser;
+export default GetOrgRolesByUser;
