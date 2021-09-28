@@ -5,7 +5,7 @@ const COSMOSDB_ENDPOINT = process.env.COSMOSDB_ENDPOINT || "";
 const COSMOSDB_KEY = process.env.COSMOSDB_KEY || "";
 const API_VERSION = "1.0.0";
 
-// Retries the organizations and roles for a given member
+// Retrieves the organizations and roles for a given member
 const GetOrgRolesByUser: AzureFunction = async function (
   context: Context,
   req: HttpRequest
