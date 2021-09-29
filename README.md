@@ -62,6 +62,12 @@ These resources helped in the learning journey.
 ### API
 
 - [How to Create a Simple REST API using TypeScript and Node.js](https://www.section.io/engineering-education/how-to-create-a-simple-rest-api-using-typescript-and-nodejs/)
+- [Cosmos DB client library for JavaScript](https://docs.microsoft.com/en-us/javascript/api/overview/azure/cosmos-readme?view=azure-node-latest)
+- [Working with Azure CosmosDB and the JavaScript SDK](https://microsoft.github.io/AzureTipsAndTricks/blog/tip204.html)
+
+### App
+
+- [Deploying Next.js App in Azure App Service](https://parveensingh.com/next-js-deployment-on-azure-app-service/)
 
 ### Azure Active Directory
 
