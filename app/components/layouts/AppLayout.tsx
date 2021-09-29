@@ -128,7 +128,7 @@ export const AppLayout = () => {
               <p>Welcome, {name}</p>
               <p>You are {isAuthed ? "" : "not "} authenticated.</p>
               <Row>
-                <Col span={12}>
+                <Col md={12}>
                   <Card title="My Organizations &amp; Roles">{formatOrgRoles(roles)}</Card>
                 </Col>
               </Row>
