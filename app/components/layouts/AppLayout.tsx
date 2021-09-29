@@ -127,11 +127,15 @@ export const AppLayout = () => {
             <Content>
               <p>Welcome, {name}</p>
               <p>You are {isAuthed ? "" : "not "} authenticated.</p>
-              <Row>
-                <Col md={12}>
-                  <Card title="My Organizations &amp; Roles">{formatOrgRoles(roles)}</Card>
-                </Col>
-              </Row>
+              {roles && (
+                <Row>
+                  <Col md={12}>
+                    <Card title="My Organizations &amp; Roles">
+                      {formatOrgRoles(roles)}
+                    </Card>
+                  </Col>
+                </Row>
+              )}
             </Content>
           </div>
           <Footer />

@@ -1,9 +1,19 @@
 import { NextFunction, Request, Response } from "express";
 import { readFile } from "fs";
 import { join } from "path";
+import { OrgRole } from "../auth";
 import { IOrganization } from "../types";
 
-export const permission = (role?: string) => {
+/**
+ * TODO: Permissions Hierarchy to enforce
+ *
+ * ADMIN
+ *  |_ CONTRIBUTOR
+ *        |_ READER
+ *
+ */
+
+export const permission = (role?: OrgRole) => {
   return (req: Request, res: Response, next: NextFunction) => {
     if (!req.headers["organization_id"]) {
       res.status(400).send("You must supply an 'organization_id' header.");
