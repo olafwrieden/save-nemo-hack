@@ -39,3 +39,5 @@ const cca = new ConfidentialClientApplication(msalConfig);
 export async function getToken(tokenRequest: any) {
   return await cca.acquireTokenByClientCredential(tokenRequest);
 }
+
+export type OrgRole = "ADMIN" | "CONTRIBUTOR" | "READER";

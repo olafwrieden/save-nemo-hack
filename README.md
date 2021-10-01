@@ -1,4 +1,5 @@
 # Save-Nemo Hack
+
 Save Nemo Hackathon
 
 Current metadata sent by buoy, flexible on changes given we are redesigning the process.
@@ -62,6 +63,12 @@ These resources helped in the learning journey.
 ### API
 
 - [How to Create a Simple REST API using TypeScript and Node.js](https://www.section.io/engineering-education/how-to-create-a-simple-rest-api-using-typescript-and-nodejs/)
+- [Cosmos DB client library for JavaScript](https://docs.microsoft.com/en-us/javascript/api/overview/azure/cosmos-readme?view=azure-node-latest)
+- [Working with Azure CosmosDB and the JavaScript SDK](https://microsoft.github.io/AzureTipsAndTricks/blog/tip204.html)
+
+### App
+
+- [Deploying Next.js App in Azure App Service](https://parveensingh.com/next-js-deployment-on-azure-app-service/)
 
 ### Azure Active Directory
 
@@ -70,3 +77,7 @@ These resources helped in the learning journey.
 - [Use query parameters to customize AAD responses](https://docs.microsoft.com/en-us/graph/query-parameters)
 - [Azure AD Authentication using MSAL and Next.js (React)](https://www.daryllukas.me/azure-ad-authentication-using-msal-and-nextjs-react/)
 - [Enrich tokens with claims from external sources using API connectors](https://docs.microsoft.com/en-us/azure/active-directory-b2c/add-api-connector-token-enrichment?pivots=b2c-user-flow)
+
+### Auth Functions
+
+- [API Connectors with B2C](https://github.com/Azure-Samples/active-directory-nodejs-external-identities-api-connector-azure-function-validate)

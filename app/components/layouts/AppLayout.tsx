@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { useIsAuthenticated, useMsal } from "@azure/msal-react";
-import { Grid, Layout } from "antd";
+import { Col, Empty, Grid, Card, Layout, Row, Table, Tag } from "antd";
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
 import { useThemeSwitcher } from "react-css-theme-switcher";
@@ -32,8 +32,51 @@ export const AppLayout = () => {
   const router = useRouter();
 
   const { accounts } = useMsal();
-  const name = accounts[0].name;
+  const { name, idTokenClaims } = accounts[0];
+  const roles = idTokenClaims["extension_OrgRoles"];
   const isAuthed = useIsAuthenticated();
+
+  const formatOrgRoles = (rolesClaim) => {
+    const orgsAndRoles = rolesClaim.split(";");
+    const orgRoles = orgsAndRoles.map((attr, idx) => {
+      const parts = attr.split(":");
+      return { key: idx, name: parts[0], role: parts[1] };
+    });
+
+    const columns = [
+      {
+        title: "Organization ID",
+        dataIndex: "name",
+        key: "name",
+      },
+      {
+        title: "My Role",
+        dataIndex: "role",
+        key: "role",
+        render: (role) => (
+          <Tag color="green" key={role}>
+            {role.toUpperCase()}
+          </Tag>
+        ),
+      },
+    ];
+
+    return (
+      <Table
+        dataSource={orgRoles}
+        columns={columns}
+        tableLayout="fixed"
+        locale={{
+          emptyText: (
+            <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              description="You are not a member of any organization."
+            />
+          ),
+        }}
+      />
+    );
+  };
 
   const currentRouteInfo = utils.getRouteInfo(
     navigationConfig,
@@ -84,6 +127,15 @@ export const AppLayout = () => {
             <Content>
               <p>Welcome, {name}</p>
               <p>You are {isAuthed ? "" : "not "} authenticated.</p>
+              {roles && (
+                <Row>
+                  <Col md={12}>
+                    <Card title="My Organizations &amp; Roles">
+                      {formatOrgRoles(roles)}
+                    </Card>
+                  </Col>
+                </Row>
+              )}
             </Content>
           </div>
           <Footer />
