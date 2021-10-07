@@ -8,8 +8,8 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.6.4",
-    "@azure/msal-browser": "^2.17.0",
-    "@azure/msal-react": "^1.0.2",
+    "@azure/msal-browser": "^2.18.0",
+    "@azure/msal-react": "^1.1.0",
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-less": "^0.0.4",
     "@zeit/next-sass": "^0.0.4",
