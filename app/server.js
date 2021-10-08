@@ -23,6 +23,7 @@ app.prepare().then(() => {
 
   server.use(router.routes());
   server.listen(port, () => {
+    console.log(`ENVIRONMENT: ${process.env.NODE_ENV}`);
     console.log(`> Ready on http://localhost:${port}`);
   });
 });
