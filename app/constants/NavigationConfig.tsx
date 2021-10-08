@@ -4,7 +4,7 @@ import { APP_PREFIX_PATH } from "./AppConfig";
 const dashBoardNavTree = [
   {
     key: "home",
-    path: `${APP_PREFIX_PATH}/home`,
+    path: `${APP_PREFIX_PATH}/`,
     title: "Home",
     icon: DashboardOutlined,
     breadcrumb: false,

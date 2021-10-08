@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES6",
     "lib": [
       "dom",
       "dom.iterable",
@@ -21,8 +21,9 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "components/shared-components/ColorPicker/index.js"  ],
+    "**/*.tsx",
+    "components/shared-components/ColorPicker/index.js"
+  ],
   "exclude": [
     "node_modules"
   ]
