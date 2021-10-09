@@ -1,4 +1,4 @@
-import { EventMessage, EventType, EventPayload } from "@azure/msal-browser";
+import { EventMessage, EventType } from "@azure/msal-browser";
 import { MsalProvider } from "@azure/msal-react";
 import { ConfigProvider } from "antd";
 import "antd/dist/antd.css";
