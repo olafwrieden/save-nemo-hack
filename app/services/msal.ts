@@ -1,4 +1,5 @@
 import * as msal from "@azure/msal-browser";
+require("dotenv").config();
 
 const b2cPolicies = {
   names: {
@@ -24,7 +25,7 @@ const msalConfig: msal.Configuration = {
     authority: b2cPolicies.authorities.signUpSignIn.authority,
     knownAuthorities: [b2cPolicies.authorityDomain],
     redirectUri: "/",
-    postLogoutRedirectUri: "/"
+    postLogoutRedirectUri: "/",
   },
 };
 
