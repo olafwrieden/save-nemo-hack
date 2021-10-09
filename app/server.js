@@ -1,29 +1,15 @@
-require('dotenv').config()
-const Koa = require("koa");
+const { createServer } = require("http");
 const next = require("next");
-const Router = require("@koa/router");
 
-const port = parseInt(process.env.PORT, 10) || 3000;
+const port = process.env.PORT || 3000;
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
-
 app.prepare().then(() => {
-  const server = new Koa();
-  const router = new Router();
-
-  router.all("(.*)", async (ctx) => {
-    await handle(ctx.req, ctx.res);
-    ctx.respond = false;
-  });
-
-  server.use(async (ctx, next) => {
-    ctx.res.statusCode = 200;
-    await next();
-  });
-
-  server.use(router.routes());
-  server.listen(port, () => {
+  createServer((req, res) => {
+    handle(req, res);
+  }).listen(port, (err) => {
+    if (err) throw err;
     console.log(`ENVIRONMENT: ${process.env.NODE_ENV}`);
     console.log(`> Ready on http://localhost:${port}`);
   });

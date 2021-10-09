@@ -1,5 +1,4 @@
 import * as msal from "@azure/msal-browser";
-require("dotenv").config();
 
 const b2cPolicies = {
   names: {
