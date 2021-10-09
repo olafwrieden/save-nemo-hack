@@ -1,5 +1,6 @@
 // @ts-nocheck
 import {
+  BulbOutlined,
   EditOutlined,
   HeartTwoTone,
   LogoutOutlined,
@@ -7,8 +8,15 @@ import {
 } from "@ant-design/icons";
 import { RedirectRequest } from "@azure/msal-browser";
 import { useMsal } from "@azure/msal-react";
-import { Avatar, Dropdown, Menu } from "antd";
-import React from "react";
+import { Avatar, Dropdown, Menu, Switch } from "antd";
+import React, { useContext } from "react";
+import { useThemeSwitcher } from "react-css-theme-switcher";
+import {
+  HEADER_NAV_COLOR_CHANGE,
+  SWITCH_THEME,
+} from "../../contexts/theme/ThemeActionType";
+import { useUser } from "../../hooks/useUser";
+import { MainContext } from "../../pages/_app";
 import { editAuthority } from "../../services/msal";
 import Icon from "../util-components/Icon";
 
@@ -21,17 +29,27 @@ const menuItem = [
 ];
 
 export const NavProfile = () => {
-  const { accounts, instance } = useMsal();
-  const { name, username, idTokenClaims } = accounts[0];
-  const isVolunteer = !!idTokenClaims["extension_Volunteer"];
+  const { instance } = useMsal();
+  const { full_name, isVolunteer } = useUser() ?? {};
 
   const editProfile: RedirectRequest = {
     ...editAuthority,
     scopes: [],
-    loginHint: username,
   };
 
-  const profileImg = `https://ui-avatars.com/api/?background=ddd&color=999&name=${name}&format=svg`;
+  const { switcher, themes } = useThemeSwitcher();
+  const [state, dispatch] = useContext(MainContext);
+  const { currentTheme } = state;
+
+  // Handle Light / Dark Mode
+  const toggleTheme = (isChecked) => {
+    dispatch({ type: HEADER_NAV_COLOR_CHANGE, payload: "" });
+    const changedTheme = isChecked ? "dark" : "light";
+    dispatch({ type: SWITCH_THEME, payload: changedTheme });
+    switcher({ theme: themes[changedTheme] });
+  };
+
+  const profileImg = `https://ui-avatars.com/api/?background=ddd&color=999&name=${full_name}&format=svg`;
   const profileMenu = (
     <div className="nav-profile nav-dropdown">
       <div className="nav-profile-header">
@@ -40,9 +58,10 @@ export const NavProfile = () => {
             size={45}
             src={profileImg}
             style={{ marginInlineEnd: "10px" }}
+            alt="User Avatar"
           />
           <div className="pl-2">
-            <h4 className="mb-0">{name}</h4>
+            <h4 className="mb-0">{full_name}</h4>
             <span className="text-muted">
               {isVolunteer ? (
                 <>
@@ -83,6 +102,17 @@ export const NavProfile = () => {
             <span>
               <LogoutOutlined className="mr-3" />
               <span className="font-weight-normal">Sign Out</span>
+            </span>
+          </Menu.Item>
+          <Menu.Item key={menuItem.length + 3}>
+            <BulbOutlined className="mr-3" />
+            <span className="font-weight-normal">
+              <Switch
+                checkedChildren="Dark"
+                unCheckedChildren="Light"
+                checked={currentTheme === "dark"}
+                onChange={toggleTheme}
+              />
             </span>
           </Menu.Item>
         </Menu>

@@ -20,7 +20,9 @@ const Layout = ({ children }) => {
           navType={navType}
           direction={direction}
           location="/"
-        />
+        >
+          {children}
+        </AppLayout>
       </AuthenticatedTemplate>
       <UnauthenticatedTemplate>
         <AuthLayout>{children}</AuthLayout>

@@ -1,3 +1,4 @@
+import { EventMessage, EventType, EventPayload } from "@azure/msal-browser";
 import { MsalProvider } from "@azure/msal-react";
 import { ConfigProvider } from "antd";
 import "antd/dist/antd.css";
@@ -9,28 +10,81 @@ import Layout from "../components/layout";
 import themeReducer, {
   initialThemeState,
 } from "../contexts/theme/themeReducer";
+import { IUser, UserContext } from "../hooks/useUser";
 import "../public/static/css/index.css";
 import { msalInstance } from "../services/msal";
+import { parseRoleClaim } from "../utils";
 
 export const MainContext = createContext(null);
 
 const App = ({ Component, pageProps }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<IUser>(null);
   const [theme, dispatch] = useReducer(themeReducer, initialThemeState);
 
+  msalInstance.addEventCallback((message: EventMessage) => {
+    if (message.eventType === EventType.LOGIN_SUCCESS) {
+      const payload = message.payload;
+      if (!payload["idTokenClaims"]) return;
+      const claims = payload["idTokenClaims"];
+      const rolesClaim: string = claims ? claims["extension_OrgRoles"] : "";
+      const roles = parseRoleClaim(rolesClaim);
+
+      if (!user && claims) {
+        setUser({
+          id: claims["oid"] || "",
+          first_name: claims["given_name"] || "",
+          last_name: claims["family_name"] || "",
+          full_name: claims["name"] || "",
+          isVolunteer: !!claims["extension_Volunteer"] || false,
+          roles: roles || [],
+        });
+      }
+    }
+  });
+
+  let accounts = msalInstance.getAllAccounts();
+  const claims = accounts[0]?.idTokenClaims;
+  const rolesClaim: string = claims ? claims["extension_OrgRoles"] : "";
+
   useEffect(() => {
-    setTimeout(() => {
+    const roles = parseRoleClaim(rolesClaim);
+    console.log("User was set.");
+
+    if (!user && claims) {
       setUser({
-        name: "Alex",
-        type: "admin",
+        id: claims["oid"] || "",
+        first_name: claims["given_name"] || "",
+        last_name: claims["family_name"] || "",
+        full_name: claims["name"] || "",
+        isVolunteer: !!claims["extension_Volunteer"] || false,
+        roles: roles || [],
       });
-    }, 2000);
+    }
   }, []);
 
   const themes = {
-    dark: `${process.env.NEXT_PUBLIC_URL}/static/css/dark-theme.css`,
-    light: `${process.env.NEXT_PUBLIC_URL}/static/css/light-theme.css`,
+    dark: `/static/css/dark-theme.css`,
+    light: `/static/css/light-theme.css`,
   };
+
+  // if (claims && !user) {
+  //   return (
+  //     <Loading cover="page" />
+  //     // <>
+  //     //   <p>Please log in to continue..</p>
+  //     //   <Button onClick={() => msalInstance.loginRedirect()}>Log in</Button>
+  //     // </>
+  //   );
+  // }
+
+  if (
+    pageProps.protected &&
+    user &&
+    pageProps.userTypes &&
+    pageProps.userTypes.indexOf(user.roles) === -1
+  ) {
+    return <p>Sorry, you don't have access</p>;
+  }
 
   return (
     <>
@@ -42,13 +96,13 @@ const App = ({ Component, pageProps }) => {
           insertionPoint="styles-insertion-point"
         >
           <ConfigProvider direction="ltr">
-            {/* <UserContext.Provider value={user}> */}
             <MsalProvider instance={msalInstance}>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
+              <UserContext.Provider value={user}>
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+              </UserContext.Provider>
             </MsalProvider>
-            {/* </UserContext.Provider> */}
           </ConfigProvider>
         </ThemeSwitcherProvider>
       </MainContext.Provider>
