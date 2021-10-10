@@ -1,21 +1,44 @@
-import { Card, Col, Empty, Row, Tag, Table } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import { Button, Card, Col, Empty, Row, Table, Tag } from "antd";
+import { useState } from "react";
 import { useUser } from "../hooks/useUser";
 import { OrgRole } from "../utils";
+import CreateOrganization from "./CreateOrganization";
 
 export const Home = () => {
   const { full_name, roles } = useUser() ?? {};
+  const [isCreateOrgOpen, setIsCreateOrgOpen] = useState(false);
+
+  const onCreate = (values) => {
+    console.log("Received values of form: ", values);
+    setIsCreateOrgOpen(false);
+  };
 
   return (
     <>
       <p>Welcome, {full_name}</p>
 
-      <Row>
+      <Row gutter={10}>
         <Col md={12}>
-          <Card title="My Organizations &amp; Roles">
+          <Card
+            title="My Organizations &amp; Roles"
+            extra={
+              <Button onClick={() => setIsCreateOrgOpen(true)}>
+                <PlusOutlined /> New
+              </Button>
+            }
+          >
             {formatOrgRoles(roles)}
           </Card>
         </Col>
       </Row>
+      <CreateOrganization
+        visible={isCreateOrgOpen}
+        onCreate={onCreate}
+        onCancel={() => {
+          setIsCreateOrgOpen(false);
+        }}
+      />
     </>
   );
 };

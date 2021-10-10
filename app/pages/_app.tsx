@@ -48,7 +48,6 @@ const App = ({ Component, pageProps }) => {
 
   useEffect(() => {
     const roles = parseRoleClaim(rolesClaim);
-    console.log("User was set.");
 
     if (!user && claims) {
       setUser({
