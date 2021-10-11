@@ -1,5 +1,5 @@
 import { PlusOutlined } from "@ant-design/icons";
-import { Button, Card, Col, Empty, Row, Table, Tag } from "antd";
+import { Button, Card, Col, Empty, message, Row, Table, Tag } from "antd";
 import { useState } from "react";
 import { useUser } from "../hooks/useUser";
 import { OrgRole } from "../utils";
@@ -11,6 +11,7 @@ export const Home = () => {
 
   const onCreate = (values) => {
     console.log("Received values of form: ", values);
+    message.error("This feature is unavailable");
     setIsCreateOrgOpen(false);
   };
 

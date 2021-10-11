@@ -10,7 +10,6 @@ const CreateOrganization = ({ visible, onCreate, onCancel }) => {
       visible={visible}
       title="Create an Organization"
       okText="Create"
-      okButtonProps={{ disabled: true }}
       cancelText="Cancel"
       onCancel={() => {
         form.resetFields();
