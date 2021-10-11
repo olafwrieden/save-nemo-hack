@@ -28,6 +28,11 @@ jobs:
           node-version: 14.x
 
       - name: npm install, build, and test
+        env:
+          NODE_ENV: ${{ env.NODE_ENV }}
+          NEXT_PUBLIC_URL: ${{ env.NEXT_PUBLIC_URL }}
+          NEXT_PUBLIC_AZURE_AD_CLIENT_ID: ${{ env.NEXT_PUBLIC_AZURE_AD_CLIENT_ID }}
+          NEXT_PUBLIC_AZURE_AD_TENANT_ID: ${{ env.NEXT_PUBLIC_AZURE_AD_TENANT_ID }}
         run: |
           npm install
           npm run build --if-present
