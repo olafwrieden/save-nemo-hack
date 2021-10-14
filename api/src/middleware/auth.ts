@@ -13,6 +13,43 @@ import { IOrganization } from "../types";
  *
  */
 
+import { roles } from "./roles";
+
+export const grantAccess = function (action: any, resource: any) {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      if (!req.headers["organization_id"]) {
+        return res
+          .status(400)
+          .send("You must supply an 'organization_id' header.");
+      }
+
+      const orgID = req.headers["organization_id"];
+      const userInfo: any = req.authInfo;
+
+      const orgsAndRoles: any = userInfo.extension_OrgRoles.split(";");
+      const orgRoles = orgsAndRoles.map((attr: string) => {
+        const parts = attr.split(":");
+        return { name: parts[0], role: parts[1] };
+      });
+
+      const myRoleInThisOrg: string = orgRoles.find(
+        (org: any) => org.name === orgID
+      ).role;
+
+      const permission: any = roles.can(myRoleInThisOrg)[action](resource);
+      if (!permission.granted) {
+        return res.status(401).json({
+          error: "You don't have enough permission to perform this action",
+        });
+      }
+      next();
+    } catch (error) {
+      next(error);
+    }
+  };
+};
+
 export const permission = (role?: OrgRole) => {
   return (req: Request, res: Response, next: NextFunction) => {
     if (!req.headers["organization_id"]) {
@@ -52,6 +89,22 @@ export const permission = (role?: OrgRole) => {
           }
         }
       );
+    }
+  };
+};
+
+export const grantsAccess = function (action: any, resource: any) {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const permission = roles.can("ADMIN")[action](resource);
+      if (!permission.granted) {
+        return res.status(401).json({
+          error: "You don't have enough permission to perform this action",
+        });
+      }
+      next();
+    } catch (error) {
+      next(error);
     }
   };
 };
