@@ -61,7 +61,7 @@ router.use((req, res, next) => {
 /** Routes */
 router.use("/", users);
 router.use("/posts", posts);
-router.use("/buoys", buoys);
+router.use("/organizations/:orgId/bouys", buoys);
 router.use("/organizations", organisations);
 
 router.get("/", (req, res) => {

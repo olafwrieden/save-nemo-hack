@@ -11,3 +11,10 @@ export interface IOrganization {
   plan: string;
   members: IMember[];
 }
+
+export interface IBouy{
+  id: Number;
+  name: string;
+  owner_org: string;
+
+}

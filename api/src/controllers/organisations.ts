@@ -21,6 +21,36 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
     res.status(500).json(error);
   }
 };
+const getOwn = async (req: Request, res: Response, next: NextFunction) => {
+  console.log("Validated claims: ", req.authInfo);
+
+  // Run Query to get user's roles
+  const { resources: items } = await container.items
+    .query(`SELECT o FROM orgs o JOIN users IN o.members WHERE users.user = '${req.authInfo.oid}'`)
+    .fetchAll();
+
+  try {
+    res.status(200).json(items);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+const getOne = async (req: Request, res: Response, next: NextFunction) => {
+  console.log("Validated claims: ", req.authInfo);
+const orgId = req.params.orgId;
+  // Run Query to get user's roles
+  const { resources: items } = await container.items
+    .query(`SELECT o FROM orgs o JOIN users IN o.members WHERE users.user = '${req.authInfo.oid}' and o.id = '${orgId}'`)
+    .fetchAll();
+
+  try {
+    res.status(200).json(items);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
 
 const create = async (req: Request, res: Response, next: NextFunction) => {
   console.log("Validated claims: ", req.authInfo);
@@ -49,4 +79,4 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default { getAll, create };
+export default { getAll, create, getOwn, getOne };

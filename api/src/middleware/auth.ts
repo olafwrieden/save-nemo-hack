@@ -26,7 +26,7 @@ export const grantAccess = function (action: any, resource: any) {
 
       const orgID = req.headers["organization_id"];
       const userInfo: any = req.authInfo;
-
+      console.log(orgID);
       const orgsAndRoles: any = userInfo.extension_OrgRoles.split(";");
       const orgRoles = orgsAndRoles.map((attr: string) => {
         const parts = attr.split(":");
@@ -36,7 +36,7 @@ export const grantAccess = function (action: any, resource: any) {
       const myRoleInThisOrg: string = orgRoles.find(
         (org: any) => org.name === orgID
       ).role;
-
+      console.log(myRoleInThisOrg);
       const permission: any = roles.can(myRoleInThisOrg)[action](resource);
       if (!permission.granted) {
         return res.status(401).json({
@@ -92,11 +92,30 @@ export const permission = (role?: OrgRole) => {
     }
   };
 };
-
+export const isSuperAdmin = function(){
+ return true;
+}
 export const grantsAccess = function (action: any, resource: any) {
-  return async (req: Request, res: Response, next: NextFunction) => {
+  return function (req:Request, res:Response, next:NextFunction) {
     try {
-      const permission = roles.can("ADMIN")[action](resource);
+      const orgID = req.params.orgId;
+      const userInfo: any = req.authInfo;
+      let permission: any = undefined;
+      if(orgID != undefined){
+      const orgsAndRoles: any = userInfo.extension_OrgRoles.split(";");
+      const orgRoles = orgsAndRoles.map((attr: string) => {
+        const parts = attr.split(":");
+        return { name: parts[0], role: parts[1] };
+      });
+      console.log(orgRoles)
+      const myRoleInThisOrg: string = orgRoles.find(
+        (org: any) => org.name === orgID
+      ).role;
+      console.log(myRoleInThisOrg);
+     permission = roles.can(myRoleInThisOrg)[action](resource);
+      }else{// orgid not set
+        permission = roles.can("READER")[action](resource);
+      }
       if (!permission.granted) {
         return res.status(401).json({
           error: "You don't have enough permission to perform this action",
@@ -106,5 +125,5 @@ export const grantsAccess = function (action: any, resource: any) {
     } catch (error) {
       next(error);
     }
-  };
+  }
 };
