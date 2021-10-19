@@ -39,7 +39,7 @@ jobs:
           app-name: "nemopi-api-dev"
           slot-name: "Production"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4DA40509A53449FEB6E8A621ECF2CF7C }}
-          package: ./api
+          package: ./api/build
 
 
 # jobs:
