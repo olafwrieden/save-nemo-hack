@@ -34,7 +34,7 @@ const CreateOrganization = ({ visible, onCreate, onCancel }) => {
           rules={[
             {
               required: true,
-              message: "Please input a name for your organization",
+              message: "Input a name for your organization",
             },
           ]}
         >
@@ -43,7 +43,13 @@ const CreateOrganization = ({ visible, onCreate, onCancel }) => {
         <Form.Item
           name="category"
           label="Category"
-          rules={[{ required: true }]}
+          rules={[
+            {
+              required: true,
+              message:
+                "Select the category that best describes your organization",
+            },
+          ]}
         >
           <Select placeholder="Select the type of organization" allowClear>
             <Option value="divingschool">Diving School</Option>
@@ -51,6 +57,12 @@ const CreateOrganization = ({ visible, onCreate, onCancel }) => {
             <Option value="diy">DIY Purposes</Option>
             <Option value="other">Other</Option>
           </Select>
+        </Form.Item>
+        <Form.Item name="description" label="Description">
+          <Input
+            placeholder="Describe your mission or tagline in one sentence"
+            maxLength={100}
+          />
         </Form.Item>
       </Form>
     </Modal>
