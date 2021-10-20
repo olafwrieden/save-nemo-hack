@@ -12,7 +12,6 @@ import { IOrganization } from "../types";
  *        |_ READER
  *
  */
-
 import { roles } from "./roles";
 
 export const grantAccess = function (action: any, resource: any) {
@@ -92,28 +91,32 @@ export const permission = (role?: OrgRole) => {
     }
   };
 };
-export const isSuperAdmin = function(){
- return true;
-}
+
+// TODO: Implement Super Admin / Staff based on AAD role (or similar)
+export const isSuperAdmin = function () {
+  return true;
+};
+
 export const grantsAccess = function (action: any, resource: any) {
-  return function (req:Request, res:Response, next:NextFunction) {
+  return function (req: Request, res: Response, next: NextFunction) {
     try {
       const orgID = req.params.orgId;
       const userInfo: any = req.authInfo;
       let permission: any = undefined;
-      if(orgID != undefined){
-      const orgsAndRoles: any = userInfo.extension_OrgRoles.split(";");
-      const orgRoles = orgsAndRoles.map((attr: string) => {
-        const parts = attr.split(":");
-        return { name: parts[0], role: parts[1] };
-      });
-      console.log(orgRoles)
-      const myRoleInThisOrg: string = orgRoles.find(
-        (org: any) => org.name === orgID
-      ).role;
-      console.log(myRoleInThisOrg);
-     permission = roles.can(myRoleInThisOrg)[action](resource);
-      }else{// orgid not set
+      if (orgID != undefined) {
+        const orgsAndRoles: any = userInfo.extension_OrgRoles.split(";");
+        const orgRoles = orgsAndRoles.map((attr: string) => {
+          const parts = attr.split(":");
+          return { name: parts[0], role: parts[1] };
+        });
+        console.log(orgRoles);
+        const myRoleInThisOrg: string = orgRoles.find(
+          (org: any) => org.name === orgID
+        ).role;
+        console.log(myRoleInThisOrg);
+        permission = roles.can(myRoleInThisOrg)[action](resource);
+      } else {
+        // orgid not set
         permission = roles.can("READER")[action](resource);
       }
       if (!permission.granted) {
@@ -125,5 +128,5 @@ export const grantsAccess = function (action: any, resource: any) {
     } catch (error) {
       next(error);
     }
-  }
+  };
 };

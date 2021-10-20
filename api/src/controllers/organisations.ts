@@ -26,7 +26,9 @@ const getOwn = async (req: Request, res: Response, next: NextFunction) => {
 
   // Run Query to get user's roles
   const { resources: items } = await container.items
-    .query(`SELECT o FROM orgs o JOIN users IN o.members WHERE users.user = '${req.authInfo.oid}'`)
+    .query(
+      `SELECT o FROM orgs o JOIN users IN o.members WHERE users.user = '${req.authInfo.oid}'`
+    )
     .fetchAll();
 
   try {
@@ -38,10 +40,12 @@ const getOwn = async (req: Request, res: Response, next: NextFunction) => {
 };
 const getOne = async (req: Request, res: Response, next: NextFunction) => {
   console.log("Validated claims: ", req.authInfo);
-const orgId = req.params.orgId;
+  const orgId = req.params.orgId;
   // Run Query to get user's roles
   const { resources: items } = await container.items
-    .query(`SELECT o FROM orgs o JOIN users IN o.members WHERE users.user = '${req.authInfo.oid}' and o.id = '${orgId}'`)
+    .query(
+      `SELECT o FROM orgs o JOIN users IN o.members WHERE users.user = '${req.authInfo.oid}' and o.id = '${orgId}'`
+    )
     .fetchAll();
 
   try {
@@ -58,8 +62,9 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
   const newOrg = {
     name: req.body.name,
     category: req.body.category,
+    description: req.body.description,
     plan: "STARTER",
-    isEnabled: false,
+    isEnabled: true,
     members: [
       {
         user: req.authInfo["oid"],
