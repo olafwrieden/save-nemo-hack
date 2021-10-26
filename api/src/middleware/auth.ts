@@ -97,7 +97,7 @@ export const isSuperAdmin = function () {
   return true;
 };
 
-export const grantsAccess = function (action: any, resource: any) {
+export const grantsAccess = function (action: string, resource: string) {
   return function (req: Request, res: Response, next: NextFunction) {
     try {
       const orgID = req.params.orgId;

@@ -60,7 +60,7 @@ router.use((req, res, next) => {
 
 /** Routes */
 router.use("/", users);
-router.use("/posts", posts);
+// router.use("/posts", posts);
 router.use("/organizations/:orgId/bouys", buoys);
 router.use("/organizations", organisations);
 
