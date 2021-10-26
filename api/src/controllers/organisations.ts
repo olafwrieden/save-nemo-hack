@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { NextFunction, Request, Response } from "express";
 import getConnection from "../common/database";
-const roles = require("../middleware/roles");
 
 const container = getConnection().container("organizations");
 
@@ -21,6 +20,7 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
     res.status(500).json(error);
   }
 };
+
 const getOwn = async (req: Request, res: Response, next: NextFunction) => {
   console.log("Validated claims: ", req.authInfo);
 
@@ -38,6 +38,7 @@ const getOwn = async (req: Request, res: Response, next: NextFunction) => {
     res.status(500).json(error);
   }
 };
+
 const getOne = async (req: Request, res: Response, next: NextFunction) => {
   console.log("Validated claims: ", req.authInfo);
   const orgId = req.params.orgId;
