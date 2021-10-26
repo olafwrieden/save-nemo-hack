@@ -46,4 +46,15 @@ router.get(
   controller.getOne
 );
 
+/**
+ * Update Specific Organization
+ */
+router.patch(
+  "/:orgId",
+  passport.authenticate("oauth-bearer", { session: false }),
+  grantsAccess("updateOwn", "organizations"),
+  validateCreateUpdateOrg,
+  controller.updateOne
+);
+
 export = router;

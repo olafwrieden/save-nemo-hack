@@ -27,7 +27,7 @@ const getOwn = async (req: Request, res: Response, next: NextFunction) => {
   // Run Query to get user's roles
   const { resources: items } = await container.items
     .query(
-      `SELECT o FROM orgs o JOIN users IN o.members WHERE users.user = '${req.authInfo.oid}'`
+      `SELECT o FROM organizations o JOIN users IN o.members WHERE users.user = '${req.authInfo["oid"]}'`
     )
     .fetchAll();
 
@@ -45,7 +45,7 @@ const getOne = async (req: Request, res: Response, next: NextFunction) => {
   // Run Query to get user's roles
   const { resources: items } = await container.items
     .query(
-      `SELECT o FROM orgs o JOIN users IN o.members WHERE users.user = '${req.authInfo.oid}' and o.id = '${orgId}'`
+      `SELECT o FROM organzations o JOIN users IN o.members WHERE users.user = '${req.authInfo.oid}' and o.id = '${orgId}'`
     )
     .fetchAll();
 
@@ -85,4 +85,32 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default { getAll, create, getOwn, getOne };
+const updateOne = async (req: Request, res: Response, next: NextFunction) => {
+  console.log("Validated claims: ", req.authInfo);
+
+  const orgId = req.params.orgId;
+
+  const newOrg = {
+    id: orgId,
+    name: req.body.name,
+    category: req.body.category,
+    description: req.body.description,
+  };
+
+  // const { resource: org } = await container.item(orgId, "Jane's Diving School").read();
+  // console.log(org);
+  // const { id, name } = org;
+
+  // const { resource: updatedItem } = await container
+  //   .item(id, "Jane's Diving School")
+  //   .replace(newOrg);
+
+  try {
+    res.status(501).json({ error: "Endpoint is not Implemented Yet" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
+export default { getAll, create, getOwn, getOne, updateOne };
