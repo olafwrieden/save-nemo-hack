@@ -2,7 +2,11 @@ import express from "express";
 import passport from "passport";
 import controller from "../controllers/organisations";
 import { grantsAccess, isSuperAdmin } from "../middleware/auth";
-import validateCreateUpdateOrg from "../middleware/validate.orgs";
+import { validateInput } from "../middleware/validate";
+import {
+  createOrganizationSchema,
+  updateOrganizationSchema,
+} from "../middleware/validate.orgs";
 const router = express.Router();
 
 /**
@@ -11,8 +15,8 @@ const router = express.Router();
 router.post(
   "/",
   passport.authenticate("oauth-bearer", { session: false }),
-  grantsAccess("createAny", "organizations"),
-  validateCreateUpdateOrg,
+  // grantsAccess("createAny", "organizations"),
+  validateInput(createOrganizationSchema),
   controller.create
 );
 
@@ -53,7 +57,7 @@ router.patch(
   "/:orgId",
   passport.authenticate("oauth-bearer", { session: false }),
   grantsAccess("updateOwn", "organizations"),
-  validateCreateUpdateOrg,
+  validateInput(updateOrganizationSchema),
   controller.updateOne
 );
 

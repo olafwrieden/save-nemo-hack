@@ -66,6 +66,8 @@ These resources helped in the learning journey.
 - [Cosmos DB client library for JavaScript](https://docs.microsoft.com/en-us/javascript/api/overview/azure/cosmos-readme?view=azure-node-latest)
 - [Working with Azure CosmosDB and the JavaScript SDK](https://microsoft.github.io/AzureTipsAndTricks/blog/tip204.html)
 - [Filtering undefined elements from an array in TypeScript](https://www.benmvp.com/blog/filtering-undefined-elements-from-array-typescript)
+- [Validate like a pro everywhere with yup](https://dev.to/buschco/validate-like-a-pro-everywhere-with-yup-2phn)
+- [Validate your Node/Express.js REST API Calls with yup](https://javascript.plainenglish.io/validate-your-node-express-js-rest-api-calls-with-yup-5c4080fdae87)
 
 ### App
 
