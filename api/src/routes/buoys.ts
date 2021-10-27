@@ -1,7 +1,7 @@
 import express from "express";
 import passport from "passport";
 import controller from "../controllers/buoys";
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 router.get(
   "/",
@@ -12,7 +12,7 @@ router.get(
 router.get(
   "/:id",
   passport.authenticate("oauth-bearer", { session: false }),
-  controller.getAll
+  controller.getOne
 );
 
 export = router;

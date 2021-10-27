@@ -72,7 +72,6 @@ These resources helped in the learning journey.
 - [Deploying Next.js App in Azure App Service](https://parveensingh.com/next-js-deployment-on-azure-app-service/)
 - [MSAL Event Listener](https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/events.md)
 - [GitHub Action to Build Next (with ENVs)](https://dev.to/thakkaryash94/build-nextjs-application-using-github-workflow-and-docker-3foj)
-- [Avatar Generator](https://avatars.dicebear.com/)
 
 ### Azure Active Directory
 

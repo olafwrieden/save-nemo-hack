@@ -2,16 +2,21 @@
   {
     "id": 1,
     "name": "buoy-01",
-    "owner_org": 1
+    "owner_org": "1a0eacd3-2577-42fe-a550-cf0a56f6a420"
   },
   {
     "id": 2,
     "name": "buoy-02",
-    "owner_org": 1
+    "owner_org": "1a0eacd3-2577-42fe-a550-cf0a56f6a420"
   },
   {
     "id": 3,
     "name": "buoy-03",
-    "owner_org": 2
+    "owner_org": "d8900bb3-c1ee-45aa-8bde-7b635c095387"
+  },
+  {
+    "id": 4,
+    "name": "buoy-04",
+    "owner_org": "d8900bb3-c1ee-45aa-8bde-7b635c095387"
   }
 ]
