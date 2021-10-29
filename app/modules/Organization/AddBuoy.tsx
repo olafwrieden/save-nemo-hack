@@ -1,3 +1,4 @@
+import { PlusOutlined } from "@ant-design/icons";
 import { Card, Col, Form, Input, Modal, Radio, Row, Select } from "antd";
 
 const { Option } = Select;
@@ -21,7 +22,11 @@ const AddBuoy = ({ visible, onCreate, onCancel }) => {
   return (
     <Modal
       visible={visible}
-      title="Add a Buoy"
+      title={
+        <>
+          <PlusOutlined /> Add a Buoy
+        </>
+      }
       okText="Add Buoy"
       cancelText="Cancel"
       onCancel={() => {
