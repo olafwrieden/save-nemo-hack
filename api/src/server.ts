@@ -10,7 +10,6 @@ import {
 import * as config from "./auth/config.json";
 import organisations from "./routes/organisations";
 import users from "./routes/users";
-import posts from "./routes/posts";
 import buoys from "./routes/buoys";
 
 const options: IBearerStrategyOptionWithRequest = {
@@ -60,7 +59,7 @@ router.use((req, res, next) => {
 
 /** Routes */
 router.use("/", users);
-// router.use("/posts", posts);
+// router.use("/buoys", buoys);
 router.use("/organizations/:orgId/bouys", buoys);
 router.use("/organizations", organisations);
 

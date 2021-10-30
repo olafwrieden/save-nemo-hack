@@ -13,8 +13,15 @@ export const createOrganizationSchema = yup.object().shape({
   description: yup.string().max(100),
 });
 
-export const updateOrganizationSchema = yup.object().shape({
-  name: yup.string(),
-  category: yup.string().oneOf(ORG_CATEGORIES),
-  description: yup.string().max(100),
-});
+export const updateOrganizationSchema = yup
+  .object()
+  .shape({
+    name: yup.string(),
+    category: yup.string().oneOf(ORG_CATEGORIES),
+    description: yup.string().max(100),
+  })
+  .test(
+    "missing-properties",
+    "At least one property must be updated.",
+    (value) => !!(value.name || value.category || value.description)
+  );
