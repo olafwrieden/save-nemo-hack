@@ -261,4 +261,15 @@ export const parseRoleClaim = (claim: string): OrgRole[] => {
   return orgRoles;
 };
 
+/**
+ * Converts a string to titlecase.
+ * @param string input string to convert
+ * @returns titlecase formatted string
+ */
+export const Titlecase = (string: string) =>
+  string
+    .valueOf()
+    .toLowerCase()
+    .replace(string.valueOf()[0], string.valueOf()[0].toUpperCase());
+
 export default Utils;
