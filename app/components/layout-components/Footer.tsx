@@ -7,6 +7,9 @@ const Footer = () => (
       <span className="font-weight-semibold">{`${APP_COPYRIGHT}`}</span> All
       rights reserved.
     </span>
+    <a className="text-gray" href="/#" onClick={(e) => e.preventDefault()}>
+      Privacy Policy
+    </a>
   </footer>
 );
 
