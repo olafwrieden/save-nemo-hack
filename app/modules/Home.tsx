@@ -1,5 +1,6 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Card, Col, Empty, message, Row, Table, Tag } from "antd";
+import Link from "next/link";
 import { useState } from "react";
 import { useUser } from "../hooks/useUser";
 import { OrgRole } from "../utils";
@@ -53,6 +54,14 @@ const formatOrgRoles = (roles: OrgRole[] = []) => {
       title: "Organization ID",
       dataIndex: "orgId",
       key: "orgId",
+      render: (orgId) => (
+        <Link
+          replace={true}
+          href={`/organizations/${encodeURIComponent(orgId)}`}
+        >
+          <a>{orgId}</a>
+        </Link>
+      ),
     },
     {
       title: "My Role",
