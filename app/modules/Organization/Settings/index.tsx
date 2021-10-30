@@ -4,7 +4,7 @@ import {
   SettingOutlined,
   TeamOutlined,
 } from "@ant-design/icons";
-import { Tabs } from "antd";
+import { Empty, Tabs } from "antd";
 
 const { TabPane } = Tabs;
 
@@ -13,25 +13,45 @@ const SettingsTabs = [
     name: "General",
     key: "general",
     icon: <SettingOutlined />,
-    content: <></>,
+    content: (
+      <Empty
+        image={Empty.PRESENTED_IMAGE_SIMPLE}
+        description={<span>Nothing to see here</span>}
+      />
+    ),
   },
   {
     name: "Buoys",
     key: "buoys",
     icon: <EnvironmentOutlined />,
-    content: <></>,
+    content: (
+      <Empty
+        image={Empty.PRESENTED_IMAGE_SIMPLE}
+        description={<span>Nothing to see here</span>}
+      />
+    ),
   },
   {
     name: "Members",
     key: "members",
     icon: <TeamOutlined />,
-    content: <></>,
+    content: (
+      <Empty
+        image={Empty.PRESENTED_IMAGE_SIMPLE}
+        description={<span>Nothing to see here</span>}
+      />
+    ),
   },
   {
     name: "Billing",
     key: "billing",
     icon: <CreditCardOutlined />,
-    content: <></>,
+    content: (
+      <Empty
+        image={Empty.PRESENTED_IMAGE_SIMPLE}
+        description={<span>Nothing to see here</span>}
+      />
+    ),
   },
 ];
 
