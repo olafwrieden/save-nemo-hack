@@ -15,15 +15,29 @@ import "../public/static/css/index.css";
 import { msalInstance } from "../services/msal";
 import { parseRoleClaim } from "../utils";
 
+// import "../modules/style.css";
+import { NextPage } from "next";
+import { AppProps } from "next/app";
+
 export const MainContext = createContext(null);
 
-const App = ({ Component, pageProps }) => {
+export type NextApplicationPage<P = any, IP = P> = NextPage<P, IP> & {
+  requireAuth?: boolean;
+};
+
+const App = (props: AppProps) => {
+  const {
+    Component,
+    pageProps,
+  }: { Component: NextApplicationPage; pageProps: any } = props;
+
   const [user, setUser] = useState<IUser>(null);
   const [theme, dispatch] = useReducer(themeReducer, initialThemeState);
 
   msalInstance.addEventCallback((message: EventMessage) => {
     if (message.eventType === EventType.LOGIN_SUCCESS) {
       const payload = message.payload;
+      // console.log(payload)
       if (!payload["idTokenClaims"]) return;
       const claims = payload["idTokenClaims"];
       const rolesClaim: string = claims ? claims["extension_OrgRoles"] : "";

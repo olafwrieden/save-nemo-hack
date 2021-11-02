@@ -1,4 +1,4 @@
-import { DashboardOutlined } from "@ant-design/icons";
+import { DashboardOutlined, ThunderboltOutlined } from "@ant-design/icons";
 import { APP_PREFIX_PATH } from "./AppConfig";
 
 const dashBoardNavTree = [
@@ -7,6 +7,14 @@ const dashBoardNavTree = [
     path: `${APP_PREFIX_PATH}/`,
     title: "Home",
     icon: DashboardOutlined,
+    breadcrumb: false,
+    submenu: [],
+  },
+  {
+    key: "dev",
+    path: `${APP_PREFIX_PATH}/developers`,
+    title: "Developer Portal",
+    icon: ThunderboltOutlined,
     breadcrumb: false,
     submenu: [],
   },
