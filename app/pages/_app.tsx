@@ -18,6 +18,7 @@ import { parseRoleClaim } from "../utils";
 // import "../modules/style.css";
 import { NextPage } from "next";
 import { AppProps } from "next/app";
+import { AuthGuard } from "../components/AuthGuard";
 
 export const MainContext = createContext(null);
 
@@ -90,15 +91,6 @@ const App = (props: AppProps) => {
   //   );
   // }
 
-  if (
-    pageProps.protected &&
-    user &&
-    pageProps.userTypes &&
-    pageProps.userTypes.indexOf(user.roles) === -1
-  ) {
-    return <p>Sorry, you don't have access</p>;
-  }
-
   return (
     <>
       <Head />
@@ -112,7 +104,15 @@ const App = (props: AppProps) => {
             <MsalProvider instance={msalInstance}>
               <UserContext.Provider value={user}>
                 <Layout>
-                  <Component {...pageProps} />
+                  {Component.requireAuth ? (
+                    // Protected Pages
+                    <AuthGuard>
+                      <Component {...pageProps} />
+                    </AuthGuard>
+                  ) : (
+                    // Public Pages
+                    <Component {...pageProps} />
+                  )}
                 </Layout>
               </UserContext.Provider>
             </MsalProvider>
@@ -120,7 +120,6 @@ const App = (props: AppProps) => {
         </ThemeSwitcherProvider>
       </MainContext.Provider>
       <CookieConsent
-        overlay
         location="bottom"
         buttonText="Accept Cookies"
         style={{ background: "#2B373B" }}
