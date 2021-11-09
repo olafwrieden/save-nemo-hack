@@ -1,3 +1,14 @@
-const AuthLayout = ({ children }) =>  <div className="auth-container">{children}</div>
+import { useThemeSwitcher } from "react-css-theme-switcher";
+import Loading from "../shared-components/Loading";
 
-export default AuthLayout
+const AuthLayout = ({ children }) => {
+  const { status } = useThemeSwitcher();
+
+  if (status === "loading") {
+    return <Loading cover="page" />;
+  }
+
+  return <div className="auth-container">{children}</div>;
+};
+
+export default AuthLayout;

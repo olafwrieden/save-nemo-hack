@@ -34,9 +34,9 @@ export const AppLayout = ({ children }) => {
     navigationConfig,
     router.pathname
   );
-  state.routeInfo = currentRouteInfo;
+  // state.routeInfo = currentRouteInfo;
   const screens = utils.getBreakPoint(useBreakpoint());
-  const isMobile = !screens.includes("lg");
+  const isMobile = screens.length === 0 ? false : !screens.includes('lg')
   const isNavSide = navType === NAV_TYPE_SIDE;
   const isNavTop = navType === NAV_TYPE_TOP;
   const getLayoutGutter = () => {
