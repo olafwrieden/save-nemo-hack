@@ -112,8 +112,8 @@ export const grantsAccess = function (action: string, resource: string) {
         console.log(orgRoles);
         const myRoleInThisOrg: string = orgRoles.find(
           (org: any) => org.name === orgID
-        ).role;
-        console.log(myRoleInThisOrg);
+        )?.role;
+        console.log(`User is ${myRoleInThisOrg || "not"} in this org`);
         permission = roles.can(myRoleInThisOrg)[action](resource);
       } else {
         // orgid not set

@@ -21,23 +21,15 @@ router.post(
 );
 
 /**
- * Get All Organizations
+ * Get All Organizations (that user is a member of)
  */
 router.get(
   "/",
   passport.authenticate("oauth-bearer", { session: false }),
+  controller.getOwn
   //grantsAccess('readOwn', 'organizations'),
   //no need to check access here as getOwn will only return orgs the current user has access to.
-  //passoport authenticate will ensure they are logged in
-  (req, res, next) => {
-    if (isSuperAdmin()) {
-      controller.getAll;
-    } else {
-      controller.getOwn;
-    }
-    controller.getOwn;
-    next();
-  }
+  //passport authenticate will ensure they are logged in
 );
 
 /**
