@@ -1,3 +1,4 @@
+import { ShopOutlined } from "@ant-design/icons";
 import { Form, Input, Modal, Select } from "antd";
 
 const { Option } = Select;
@@ -8,7 +9,11 @@ const CreateOrganization = ({ visible, onCreate, onCancel }) => {
   return (
     <Modal
       visible={visible}
-      title="Create an Organization"
+      title={
+        <>
+          <ShopOutlined /> Create an Organization
+        </>
+      }
       okText="Create"
       cancelText="Cancel"
       onCancel={() => {
