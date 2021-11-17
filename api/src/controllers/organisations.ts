@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { SqlQuerySpec } from "@azure/cosmos";
 import { NextFunction, Request, Response } from "express";
 import getConnection from "../common/database";
 
@@ -33,7 +34,7 @@ const getOwn = async (req: Request, res: Response, next: NextFunction) => {
   const limit = Number(req.query.limit) || 25;
 
   // Query Spec
-  const querySpec = {
+  const querySpec: SqlQuerySpec = {
     query:
       "SELECT o FROM organizations o JOIN users IN o.members WHERE users.user = @userId OFFSET @offset LIMIT @limit",
     parameters: [
@@ -76,7 +77,7 @@ const getOne = async (req: Request, res: Response, next: NextFunction) => {
   const orgId = String(req.params.orgId);
 
   // Query Spec
-  const querySpec = {
+  const querySpec: SqlQuerySpec = {
     query:
       "SELECT o FROM organizations o JOIN users IN o.members WHERE users.user = @userId AND o.id = @orgId",
     parameters: [
@@ -91,7 +92,7 @@ const getOne = async (req: Request, res: Response, next: NextFunction) => {
     ],
   };
 
-  // Run Query to get user's roles
+  // Get Query Results
   const { resources: organization } = await container.items
     .query(querySpec)
     .fetchAll();

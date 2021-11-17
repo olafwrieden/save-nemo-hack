@@ -1,10 +1,14 @@
-import { CosmosClient } from "@azure/cosmos";
+import { CosmosClient, Database } from "@azure/cosmos";
 
 const COSMOSDB_ENDPOINT = process.env.COSMOSDB_ENDPOINT || "";
 const COSMOSDB_KEY = process.env.COSMOSDB_KEY || "";
 
-let cosmosInstance: object;
+let cosmosInstance: Database;
 
+/**
+ * Instantiates or returns a database connection to the CosmosDB.
+ * @returns database connection to the 'save-nemo' CosmosDB
+ */
 const getDatabase = () => {
   if (!cosmosInstance) {
     cosmosInstance = new CosmosClient({
