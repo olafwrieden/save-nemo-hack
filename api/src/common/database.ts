@@ -6,10 +6,10 @@ const COSMOSDB_KEY = process.env.COSMOSDB_KEY || "";
 let cosmosInstance: Database;
 
 /**
- * Instantiates or returns a database connection to the CosmosDB.
+ * Instantiates or returns a database connection to CosmosDB.
  * @returns database connection to the 'save-nemo' CosmosDB
  */
-const getDatabase = () => {
+export const getDatabase = () => {
   if (!cosmosInstance) {
     cosmosInstance = new CosmosClient({
       endpoint: COSMOSDB_ENDPOINT,
@@ -18,5 +18,3 @@ const getDatabase = () => {
   }
   return cosmosInstance;
 };
-
-export default getDatabase;

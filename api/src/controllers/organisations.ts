@@ -1,9 +1,9 @@
 // @ts-nocheck
 import { SqlQuerySpec } from "@azure/cosmos";
 import { NextFunction, Request, Response } from "express";
-import getConnection from "../common/database";
+import { getDatabase } from "../common/database";
 
-const container = getConnection().container("organizations");
+const container = getDatabase().container("organizations");
 
 // Get all organizations
 const getAll = async (req: Request, res: Response, next: NextFunction) => {
